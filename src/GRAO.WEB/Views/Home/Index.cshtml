@@ -1,0 +1,124 @@
+﻿@model GRAO.Core.Models.PdfRequestViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Gerar PDF</title>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Gerar PDF com Imagens</h2>
+
+        <form asp-action="Generate"
+              asp-controller="Home"
+              method="post"
+              enctype="multipart/form-data"
+              target="downloadFrame"
+              onsubmit="return handleSubmit(this)">
+
+            @Html.AntiForgeryToken()
+
+            <label>Descrição</label>
+            <textarea asp-for="Description"></textarea>
+            <span class="error" asp-validation-for="Description"></span>
+
+            <label>Número inicial</label>
+            <input asp-for="CountFirst" type="number" />
+            <span class="error" asp-validation-for="CountFirst"></span>
+
+            <label>Imagens</label>
+            <input asp-for="Images" type="file" multiple accept="image/*" />
+            <span class="error" asp-validation-for="Images"></span>
+
+            <button type="submit">Gerar PDF</button>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="error" style="margin-top:15px">
+                    Verifique os campos acima.
+                </div>
+            }
+        </form>
+    </div>
+
+    <iframe name="downloadFrame" id="downloadFrame" style="display:none"></iframe>
+
+    <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+        <strong>Gerando PDF, aguarde...</strong>
+    </div>
+
+    <script>
+        function handleSubmit(form) {
+
+            $(".error").text("");
+
+            if (!$(form).valid()) {
+                return false;
+            }
+
+            document.getElementById("loading").style.display = "flex";
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "RequestVerificationToken":
+                        document.querySelector('input[name="__RequestVerificationToken"]').value
+                }
+            })
+            .then(async response => {
+
+                document.getElementById("loading").style.display = "none";
+
+                if (!response.ok) {
+                    const errors = await response.json();
+
+                    for (const key in errors) {
+                        const span = document.querySelector(
+                            `[data-valmsg-for="${key}"]`
+                        );
+
+                        if (span) {
+                            span.textContent = errors[key][0];
+                        }
+                    }
+
+                    return;
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "resultado.pdf";
+                a.click();
+
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(() => {
+                document.getElementById("loading").style.display = "none";
+                alert("Erro inesperado ao gerar o PDF.");
+            });
+
+            return false;
+        }
+    </script>
+
+
+</body>
+</html>

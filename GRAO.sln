@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRAO.WEB", "src\GRAO.WEB\GRAO.WEB.csproj", "{6E96D697-BB67-4A47-A0C5-6C2C5299E676}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRAO.Core", "src\GRAO.Core\GRAO.Core.csproj", "{1881B659-4A73-48DB-AA2A-70563623268F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E96D697-BB67-4A47-A0C5-6C2C5299E676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E96D697-BB67-4A47-A0C5-6C2C5299E676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E96D697-BB67-4A47-A0C5-6C2C5299E676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E96D697-BB67-4A47-A0C5-6C2C5299E676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1881B659-4A73-48DB-AA2A-70563623268F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1881B659-4A73-48DB-AA2A-70563623268F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1881B659-4A73-48DB-AA2A-70563623268F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1881B659-4A73-48DB-AA2A-70563623268F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF7A8D12-9D0F-421E-BBEA-AF2EB304F1EE}
+	EndGlobalSection
+EndGlobal
